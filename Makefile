@@ -166,7 +166,8 @@ CSRC = $(STARTUPSRC) \
        FatFs/ffunicode.c \
        usbcfg.c \
        NANOVNA_STM32_F303/adc.c \
-       main.c plot.c ui.c ili9341.c tlv320aic3204.c si5351.c numfont20x22.c Font5x7.c Font10x14.c flash.c si4468.c  Font7x13b.c rtc.c
+       main.c plot.c ui.c ili9341.c tlv320aic3204.c si5351.c numfont20x22.c Font5x7.c Font10x14.c flash.c si4468.c  Font7x13b.c rtc.c \
+       $(shell find lib -name '*.c')  # Recursively find all .c files in lib/
 else
 CSRC = $(STARTUPSRC) \
        $(KERNSRC) \
@@ -178,7 +179,8 @@ CSRC = $(STARTUPSRC) \
        $(STREAMSSRC) \
        usbcfg.c \
        NANOVNA_STM32_F072/adc.c \
-       main.c plot.c ui.c ili9341.c numfont20x22.c Font5x7.c Font10x14.c flash.c si4432.c  Font7x13b.c
+       main.c plot.c ui.c ili9341.c numfont20x22.c Font5x7.c Font10x14.c flash.c si4432.c  Font7x13b.c \
+       $(shell find lib -name '*.c')  # Recursively find all .c files in lib/
 endif
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -210,7 +212,8 @@ ASMSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 INCDIR = $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC)  \
-         $(STREAMSINC)
+         $(STREAMSINC) \
+         $(shell find lib -type d)  # Add all subdirectories of lib/
 
 #
 # Project, sources and paths
@@ -280,10 +283,10 @@ endif
 UADEFS =
 
 # List all user directories here
-UINCDIR =
+UINCDIR = lib
 
 # List the user directory to look for the libraries here
-ULIBDIR =
+ULIBDIR = lib
 
 # List all user libraries here
 ULIBS = -lm

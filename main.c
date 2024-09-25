@@ -25,6 +25,8 @@
 #include <string.h>
 #include <math.h>
 
+#include "vna.h"
+
 freq_t frequencyStart;
 freq_t frequencyStop;
 int32_t frequencyExtra;
@@ -39,25 +41,7 @@ int32_t frequencyExtra;
 static BaseSequentialStream *shell_stream;
 threads_queue_t shell_thread;
 
-// Shell new line
-#define VNA_SHELL_NEWLINE_STR    "\r\n"
-// Shell command promt
-#define VNA_SHELL_PROMPT_STR     "ch> "
-// Shell max arguments
-#define VNA_SHELL_MAX_ARGUMENTS   4
-// Shell max command line size
-#define VNA_SHELL_MAX_LENGTH     48
-
-// Shell command functions prototypes
-typedef void (*vna_shellcmd_t)(int argc, char *argv[]);
-#define VNA_SHELL_FUNCTION(command_name) \
-      static void command_name(int argc, char *argv[])
-
-// Shell command line buffer, args, nargs, and function ptr
-char shell_line[VNA_SHELL_MAX_LENGTH];
-char *shell_args[VNA_SHELL_MAX_ARGUMENTS + 1];
-uint16_t shell_nargs;
-static volatile vna_shellcmd_t  shell_function = 0;
+// include vna.h
 
 //#define ENABLED_DUMP
 // Allow get threads debug info
