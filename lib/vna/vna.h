@@ -24,4 +24,7 @@ char *shell_args[VNA_SHELL_MAX_ARGUMENTS + 1];
 uint16_t shell_nargs;
 static volatile vna_shellcmd_t shell_function = 0;
 
+// Info about NanoVNA, need fore soft
+#define ENABLE_INFO_COMMAND
+
 #endif

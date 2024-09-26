@@ -37,32 +37,16 @@ int32_t frequencyExtra;
 // If need run shell as thread (use more amount of memory fore stack), after
 // enable this need reduce spi_buffer size, by default shell run in main thread
 // #define VNA_SHELL_THREAD
-
-static BaseSequentialStream *shell_stream;
-threads_queue_t shell_thread;
-
-// include vna.h
+#include "shell.h"
 
 //#define ENABLED_DUMP
-// Allow get threads debug info
-#define ENABLE_THREADS_COMMAND
-// Enable vbat_offset command, allow change battery voltage correction in config
-#define ENABLE_VBAT_OFFSET_COMMAND
-// Info about NanoVNA, need fore soft
-#define ENABLE_INFO_COMMAND
-// Enable color command, allow change config color for traces, grid, menu
-#define ENABLE_COLOR_COMMAND
-#ifdef __USE_SERIAL_CONSOLE__
-#define ENABLE_USART_COMMAND
-#endif
+#include "threads.h"
+#include "vbat.h"
+#include "gui.h"
+#include "usart.h"
+#include "sdcard.h"
 
-#ifdef __USE_SD_CARD__
-#ifdef __DISABLE_HOT_INSERT__
-uint16_t sd_card_inserted_at_boot = false;
-#endif
-// Enable SD card console command
-#define ENABLE_SD_CARD_CMD
-#endif
+
 
 void update_frequencies(void);
 static void set_frequencies(freq_t start, freq_t stop, uint16_t points);
