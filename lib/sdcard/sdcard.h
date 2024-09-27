@@ -3,7 +3,7 @@
 
 #ifdef __USE_SD_CARD__
 #ifdef __DISABLE_HOT_INSERT__
-uint16_t sd_card_inserted_at_boot = false;
+extern uint16_t sd_card_inserted_at_boot;
 #endif
 // Enable SD card console command
 #define ENABLE_SD_CARD_CMD

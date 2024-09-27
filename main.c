@@ -46,8 +46,6 @@ int32_t frequencyExtra;
 #include "usart.h"
 #include "sdcard.h"
 
-
-
 void update_frequencies(void);
 static void set_frequencies(freq_t start, freq_t stop, uint16_t points);
 static bool sweep(bool break_on_operation);
