@@ -16,6 +16,14 @@ extern int max2871;
 void clear_backup(void);
 
 #ifdef TINYSA4
+extern THD_WORKING_AREA(waThread1, 1224);
+#else
+extern THD_WORKING_AREA(waThread1, 768);
+#endif
+
+extern THD_FUNCTION(Thread1, arg);
+
+#ifdef TINYSA4
 #else
 extern bool has_esd;
 #endif

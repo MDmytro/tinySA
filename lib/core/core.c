@@ -76,16 +76,16 @@ systime_t last_auto_save = 0;
 #endif
 
 #ifdef TINYSA4
-static THD_WORKING_AREA(waThread1, 1224);
+THD_WORKING_AREA(waThread1, 1224);
 systime_t restart_set_time = 0;
 systime_t restart_interval = 0;
 #else
-static THD_WORKING_AREA(waThread1, 768);
+THD_WORKING_AREA(waThread1, 768);
 bool has_esd = false;
 #endif
 // END
 
-static THD_FUNCTION(Thread1, arg)
+THD_FUNCTION(Thread1, arg)
 {
   (void)arg;
   chRegSetThreadName("sweep");
