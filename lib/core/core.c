@@ -70,7 +70,6 @@ void clear_backup(void) {
   while (i--)
     *f++ = 0;
 }
-// END
 
 #ifdef __USE_SD_CARD__
 systime_t last_auto_save = 0;
@@ -84,6 +83,8 @@ systime_t restart_interval = 0;
 static THD_WORKING_AREA(waThread1, 768);
 bool has_esd = false;
 #endif
+// END
+
 static THD_FUNCTION(Thread1, arg)
 {
   (void)arg;
@@ -1193,7 +1194,7 @@ const freq_t v5_2_correction_frequency[CORRECTION_SIZE][CORRECTION_POINTS]=
  /* ultra */ {   10000,  100000,     500000,     3000000,    50000000,   800000000,  2300000000,     2800000000,     3300000000,     3620000000,     4200000000,     4470000000,     4480000000,     4570000000,     4780000000,     5330000000,     5700000000,     6000000000,     6390000000,     7300000000,     },
 };
 
-const float  v5_2_correction_value[CORRECTION_SIZE][CORRECTION_POINTS]=
+const float v5_2_correction_value[CORRECTION_SIZE][CORRECTION_POINTS]=
 {
  /* low */   {   2.88,   1.06,   0.9,    0.85,   1.3,    0.72,   0.8,    0.53,   1.03,   0.81,   0.55,   0.05,   -0.06,  0.18,   -0.28,  0.61,   0.98,   2.89,   3.89,   7.37,   },
  /* low lna */   {   6.07,   2.97,   0.76,   -0.73,  -1.37,  -2.36,  -2.92,  1.36,   2.67,   3.52,   6.12,   9.45,   9.54,   5.97,   4.72,   3.88,   4.51,   6.38,   9.34,   11.81,  },
@@ -2512,7 +2513,7 @@ static bool usb_IsActive(void){
 }
 
 // Check active connection for Shell
-static bool shell_check_connect(void){
+bool shell_check_connect(void){
 #ifdef __USE_SERIAL_CONSOLE__
   // Serial connection always active
   if (config._mode & _MODE_SERIAL)
@@ -2556,7 +2557,7 @@ void shell_reset_console(void){
 }
 
 
-static void shell_init_connection(void) {
+void shell_init_connection(void) {
 /*
  * Init shell thread object (need for switch threads)
  */
@@ -2679,7 +2680,7 @@ const VNAShellCommand *VNAShell_parceLine(char *line){
 //
 // Read command line from shell_stream
 //
-static int VNAShell_readLine(char *line, int max_size)
+int VNAShell_readLine(char *line, int max_size)
 {
   // send backspace, space for erase, backspace again
   char backspace[] = {0x08, 0x20, 0x08, 0x00};
@@ -2711,7 +2712,7 @@ static int VNAShell_readLine(char *line, int max_size)
 //
 // Parse and run command line
 //
-static void VNAShell_executeLine(char *line)
+void VNAShell_executeLine(char *line)
 {
   // Execute line
   const VNAShellCommand *scp = VNAShell_parceLine(line);
@@ -2876,17 +2877,11 @@ void set_audio_mode(uint16_t new_mode)
 }
 #endif
 
-static const GPTConfig gpt4cfg = {
+const GPTConfig gpt4cfg = {
   8000000, // 8 MHz timer clock.
   NULL, // No callback
   0, 0
 };
-
-#ifdef TINYSA4
-#define DELAY_TIMER GPTD4
-#else
-#define DELAY_TIMER GPTD14
-#endif
 
 void my_microsecond_delay(int t)
 {
@@ -2910,17 +2905,9 @@ void my_veryfast_delay(int t) // In 8MHz ticks
  * Profile stack usage (enable threads command by def ENABLE_THREADS_COMMAND) show:
  *Stack maximum usage = 472 bytes (need test more and run all commands), free stack = 40 bytes
  */
-static void dac_init(void){
+void dac_init(void){
   rccEnableDAC1(false); // Enable DAC1
 }
-
-#ifdef TINYSA4__
-#undef PULSE
-#define PULSE {   palClearPad(GPIOB, 14); my_microsecond_delay(2); palSetPad(GPIOB, 14); }
-#else
-#undef PULSE
-#define PULSE
-#endif
 
 #ifdef TINYSA4
 void set_freq_boundaries(void) {

@@ -58,7 +58,7 @@ int main(void)
   has_esd = ((palReadPort(GPIOB) & (1<<12)) ? false : true );
   bool has_new_switch = ((palReadPort(GPIOA) & (1<<5)) ? false : true ) || ((palReadPort(GPIOB) & (1<<12)) ? false : true );
 #endif
-
+// END
 
 #ifdef __SI4432__
  /*
@@ -149,7 +149,7 @@ int main(void)
  */
  gptStart(&DELAY_TIMER, &gpt4cfg);
  gptPolledDelay(&DELAY_TIMER, 80); // 10 us delay
-
+// END REVIEW
 /* restore config */
 #ifdef TINYSA3
   if (has_new_switch)
