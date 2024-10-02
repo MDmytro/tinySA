@@ -8,8 +8,6 @@
 #include <string.h>
 #include <math.h>
 
-#include "vna.h"
-
 /*
  *  Shell settings
  */
@@ -24,6 +22,8 @@
 #include "gui.h"
 #include "usart.h"
 #include "sdcard.h"
+
+#include "vna.h"
 
 #include "core.h"
 

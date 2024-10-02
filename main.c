@@ -25,6 +25,8 @@
 #include <string.h>
 #include <math.h>
 
+#include "vna.h"
+
 #include "core.h"
 
 int main(void)

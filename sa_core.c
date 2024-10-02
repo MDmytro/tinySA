@@ -5043,7 +5043,7 @@ void reset_band(void) {
 #endif
 
 // main loop for measurement
-static bool sweep(bool break_on_operation)
+bool sweep(bool break_on_operation)
 {
   float RSSI;
 //  float local_peakLevel = -150.0;
