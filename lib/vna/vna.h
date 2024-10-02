@@ -18,10 +18,10 @@ typedef void (*vna_shellcmd_t)(int argc, char *argv[]);
       void command_name(int argc, char *argv[])
 
 // Shell command line buffer, args, nargs, and function ptr
-char shell_line[VNA_SHELL_MAX_LENGTH];
-char *shell_args[VNA_SHELL_MAX_ARGUMENTS + 1];
-uint16_t shell_nargs;
-volatile vna_shellcmd_t shell_function = 0;
+extern char shell_line[VNA_SHELL_MAX_LENGTH];
+extern char *shell_args[VNA_SHELL_MAX_ARGUMENTS + 1];
+extern uint16_t shell_nargs;
+extern volatile vna_shellcmd_t shell_function;
 
 // Info about NanoVNA, need fore soft
 #define ENABLE_INFO_COMMAND

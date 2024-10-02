@@ -31,6 +31,8 @@ freq_t frequencyStart;
 freq_t frequencyStop;
 int32_t frequencyExtra;
 
+volatile vna_shellcmd_t shell_function = 0;
+
 static void set_frequencies(freq_t start, freq_t stop, uint16_t points);
 static long_t my_atoi(const char *p);
 
@@ -59,9 +61,13 @@ uint8_t completed = false;
 uint8_t enable_after_complete = 0;
 
 #ifdef TINYSA4
+freq_t ULTRA_MAX_FREQ;           // Start of harmonic mode
 freq_t MAX_LO_FREQ;
 freq_t MAX_ABOVE_IF_FREQ;           // Range to use for below IF
 freq_t MIN_BELOW_IF_FREQ;          // Range to use for below IF
+freq_t ULTRA_THRESHOLD;
+freq_t NORMAL_MAX_FREQ;
+int max2871;
 #endif
 
 void clear_backup(void) {
