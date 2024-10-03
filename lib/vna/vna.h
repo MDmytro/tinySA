@@ -2,6 +2,7 @@
 #define VNA_H
 
 #include <stdint.h>
+#include "nanovna.h"
 
 // Shell new line
 #define VNA_SHELL_NEWLINE_STR    "\r\n"
@@ -25,5 +26,12 @@ extern volatile vna_shellcmd_t shell_function;
 
 // Info about NanoVNA, need fore soft
 #define ENABLE_INFO_COMMAND
+
+extern freq_t frequencyStart;
+extern freq_t frequencyStop;
+
+void set_frequencies(freq_t start, freq_t stop, uint16_t points);
+
+extern uint16_t sweep_once_count;
 
 #endif

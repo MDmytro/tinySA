@@ -16,6 +16,9 @@
  * the Free Software Foundation, Inc., 51 Franklin Street,
  * Boston, MA 02110-1301, USA.
  */
+#ifndef NANOVNA_H
+#define NANOVNA_H
+
 #include "ch.h"
 
 #ifdef TINYSA_F303
@@ -1917,3 +1920,4 @@ extern float Si446x_get_temp(void);
 #define ENBW_Hz    actual_rbw_x10*100;
 #endif
 /*EOF*/
+#endif
