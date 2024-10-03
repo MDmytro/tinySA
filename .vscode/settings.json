@@ -9,6 +9,7 @@
     "files.associations": {
         "core.h": "c",
         "vna.h": "c",
-        "nanovna.h": "c"
+        "nanovna.h": "c",
+        "chprintf.h": "c"
     }
 }
