@@ -12,3 +12,9 @@ volatile vna_shellcmd_t shell_function = 0;
 
 uint8_t sweep_mode = SWEEP_ENABLE;
 uint16_t sweep_once_count = 1;
+
+int set_frequency(freq_t freq)
+{
+  (void) freq;
+  return 1;
+}

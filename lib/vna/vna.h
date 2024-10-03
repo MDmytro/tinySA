@@ -31,6 +31,7 @@ extern freq_t frequencyStart;
 extern freq_t frequencyStop;
 
 void set_frequencies(freq_t start, freq_t stop, uint16_t points);
+int set_frequency(freq_t freq);
 
 extern uint16_t sweep_once_count;
 

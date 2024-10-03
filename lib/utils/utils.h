@@ -12,4 +12,6 @@ freq_t my_atoui(const char *p);
 
 float my_atof(const char *p);
 
+int get_str_index(const char *v, const char *list);
+
 #endif

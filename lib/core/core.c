@@ -31,7 +31,7 @@
 
 uint16_t redraw_request = 0; // contains REDRAW_XXX flags
 // Version text, displayed in Config->Version menu, also send by info command
-const char * const info_about[]={
+const char * const info_about[] = {
   BOARD_NAME,
   "2019-2024 Copyright @Erik Kaashoek",
   "2016-2020 Copyright @edy555",
@@ -267,33 +267,28 @@ void enableTracesAtComplete(uint8_t mask){
   redraw_request|=REDRAW_AREA;
 }
 
-int
-is_paused(void)
+int is_paused(void)
 {
   return !(sweep_mode & (SWEEP_ENABLE|SWEEP_ONCE));
 }
 
-static inline void
-pause_sweep(void)
+static inline void pause_sweep(void)
 {
   sweep_mode &= ~SWEEP_ENABLE;
 }
 
-static inline void
-resume_sweep(void)
+static inline void resume_sweep(void)
 {
   sweep_mode |= SWEEP_ENABLE;
 }
 
-void
-resume_once(uint16_t c)
+void resume_once(uint16_t c)
 {
   sweep_once_count = c;
   sweep_mode |= SWEEP_ONCE;
 }
 
-void
-toggle_sweep(void)
+void toggle_sweep(void)
 {
   sweep_mode ^= SWEEP_ENABLE;
 }
@@ -336,37 +331,6 @@ int shell_serial_printf(const char *fmt, ...)
 }
 #endif
 
-//
-// Function used for search substring v in list
-// Example need search parameter "center" in "start|stop|center|span|cw" getStringIndex return 2
-// If not found return -1
-// Used for easy parse command arguments
-static int get_str_index(const char *v, const char *list)
-{
-  int i = 0;
-  while (1) {
-    const char *p = v;
-    while (1) {
-      char c = *list;
-      if (c == '|') c = 0;
-      if (c == *p++) {
-        // Found, return index
-        if (c == 0) return i;
-        list++;    // Compare next symbol
-        continue;
-      }
-      break;  // Not equal, break
-    }
-    // Set new substring ptr
-    while (1) {
-      // End of string, not found
-      if (*list == 0) return -1;
-      if (*list++ == '|') break;
-    }
-    i++;
-  }
-  return -1;
-}
 
 #ifdef __USE_RTC__
 VNA_SHELL_FUNCTION(cmd_restart)
@@ -384,7 +348,6 @@ VNA_SHELL_FUNCTION(cmd_restart)
   }
 }
 #endif
-
 
 VNA_SHELL_FUNCTION(cmd_pause)
 {
@@ -479,12 +442,6 @@ VNA_SHELL_FUNCTION(cmd_reset)
   /* wait forever */
   while (1)
     ;
-}
-
-int set_frequency(freq_t freq)
-{
-  (void) freq;
-  return 1;
 }
 
 VNA_SHELL_FUNCTION(cmd_freq)
