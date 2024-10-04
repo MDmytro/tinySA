@@ -14,4 +14,6 @@ float my_atof(const char *p);
 
 int get_str_index(const char *v, const char *list);
 
+int parse_line(char *line, char* args[], int max_cnt);
+
 #endif

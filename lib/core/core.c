@@ -293,19 +293,6 @@ void toggle_sweep(void)
   sweep_mode ^= SWEEP_ENABLE;
 }
 
-#ifdef __USE_SERIAL_CONSOLE__
-// Serial Shell commands output
-int shell_serial_printf(const char *fmt, ...)
-{
-  va_list ap;
-  int formatted_bytes;
-  va_start(ap, fmt);
-  formatted_bytes = chvprintf((BaseSequentialStream *)&SD1, fmt, ap);
-  va_end(ap);
-  return formatted_bytes;
-}
-#endif
-
 #ifdef __USE_RTC__
 VNA_SHELL_FUNCTION(cmd_restart)
 {
@@ -1226,8 +1213,7 @@ VNA_SHELL_FUNCTION(cmd_hop)
 }
 #endif
 
-static void
-update_markers_index(void)
+static void update_markers_index(void)
 {
   int m, idx;
   freq_t fstart = get_sweep_frequency(ST_START);
@@ -1257,8 +1243,7 @@ update_markers_index(void)
   }
 }
 
-void
-set_marker_index(int m, int16_t idx)
+void set_marker_index(int m, int16_t idx)
 {
   if ((uint32_t)m >= MARKERS_MAX || (uint16_t)idx >= sweep_points) return;
   markers[m].index = idx;
@@ -1404,8 +1389,7 @@ freq_t getFrequency(uint16_t idx) {
     return _f_start + _f_delta * idx + (_f_count / 2 + _f_error * idx) / _f_count;}
 #endif
 
-void
-update_frequencies(void)
+void update_frequencies(void)
 {
   freq_t start, stop;
   start = get_sweep_frequency(ST_START);
@@ -1420,8 +1404,7 @@ update_frequencies(void)
   update_grid();
 }
 
-void
-set_sweep_frequency(int type, freq_t freq)
+void set_sweep_frequency(int type, freq_t freq)
 {
   // Check frequency for out of bounds (minimum SPAN can be any value)
   if (type != ST_SPAN && freq < START_MIN)
@@ -1486,8 +1469,7 @@ set_sweep_frequency(int type, freq_t freq)
   update_frequencies();
 }
 
-freq_t
-get_sweep_frequency(int type)
+freq_t get_sweep_frequency(int type)
 {
 #ifdef __BANDS__
   if (setting.multi_band && !setting.multi_trace) {
@@ -2362,7 +2344,6 @@ void shell_reset_console(void){
 
 }
 
-
 void shell_init_connection(void) {
 /*
  * Init shell thread object (need for switch threads)
@@ -2432,40 +2413,6 @@ static void shell_init_connection(void){
 #endif
 
 bool global_abort = false;
-
-static inline char* vna_strpbrk(char *s1, const char *s2) {
-  do {
-    const char *s = s2;
-    do {
-      if (*s == *s1) return s1;
-      s++;
-    } while (*s);
-    s1++;
-  } while(*s1);
-  return s1;
-}
-
-/*
- * Split line by arguments, return arguments count
- */
-int parse_line(char *line, char* args[], int max_cnt) {
-  char *lp = line, c;
-  const char *brk;
-  uint16_t nargs = 0;
-  while ((c = *lp) != 0) {                   // While not end
-    if (c != ' ' && c != '\t') {             // Skipping white space and tabs.
-      if (c == '"') {lp++; brk = "\""; }     // string end is next quote or end
-      else          {      brk = " \t";}     // string end is tab or space or end
-      if (nargs < max_cnt) args[nargs] = lp; // Put pointer in args buffer (if possible)
-      nargs++;                               // Substring count
-      lp = vna_strpbrk(lp, brk);             // search end
-      if (*lp == 0) break;                   // Stop, end of input string
-      *lp = 0;                               // Set zero at the end of substring
-    }
-    lp++;
-  }
-  return nargs;
-}
 
 const VNAShellCommand *VNAShell_parceLine(char *line){
   // Parse and execute line
@@ -2736,7 +2683,6 @@ assembly function. */
 void HardFault_Handler(void);
 
 void hard_fault_handler_c(uint32_t *sp) __attribute__((naked));
-
 
 void HardFault_Handler(void)
 {

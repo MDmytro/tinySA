@@ -147,3 +147,37 @@ int get_str_index(const char *v, const char *list)
   }
   return -1;
 }
+
+static inline char* vna_strpbrk(char *s1, const char *s2) {
+  do {
+    const char *s = s2;
+    do {
+      if (*s == *s1) return s1;
+      s++;
+    } while (*s);
+    s1++;
+  } while(*s1);
+  return s1;
+}
+
+/*
+ * Split line by arguments, return arguments count
+ */
+int parse_line(char *line, char* args[], int max_cnt) {
+  char *lp = line, c;
+  const char *brk;
+  uint16_t nargs = 0;
+  while ((c = *lp) != 0) {                   // While not end
+    if (c != ' ' && c != '\t') {             // Skipping white space and tabs.
+      if (c == '"') {lp++; brk = "\""; }     // string end is next quote or end
+      else          {      brk = " \t";}     // string end is tab or space or end
+      if (nargs < max_cnt) args[nargs] = lp; // Put pointer in args buffer (if possible)
+      nargs++;                               // Substring count
+      lp = vna_strpbrk(lp, brk);             // search end
+      if (*lp == 0) break;                   // Stop, end of input string
+      *lp = 0;                               // Set zero at the end of substring
+    }
+    lp++;
+  }
+  return nargs;
+}
